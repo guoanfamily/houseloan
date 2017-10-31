@@ -67,10 +67,10 @@ export default {
       console.log(this.totalPrice);
     },
     payPercent(){
-      if(this.payRate>=1){
+      if(!this.payRateLabel){
         return this.payRate +"万";
       }else{
-      return this.payRateLabel+"(" + (this.totalPrice*this.payRate).toFixed(2) +"万" +")";
+        return this.payRateLabel+"(" + (this.totalPrice*this.payRate).toFixed(2) +"万" +")";
       }
     }
   },
@@ -78,8 +78,7 @@ export default {
     submit(payRate,label){
       this.payRateLabel = label;
       this.showPayPage=false;
-      this.payRate = payRate;
-      //this.payPercent = showValue     
+      this.payRate = payRate; 
     },
     RateSubmit(showValue,actRate){
       this.showRatePage=false;

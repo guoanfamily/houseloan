@@ -48,7 +48,7 @@ export default {
     submit() {
       console.log(this.customMoney)
       if (this.customMoney) {
-        this.$emit("submit", this.customMoney);
+        this.$emit("submit", this.customMoney,'');
       }
     }
   }
