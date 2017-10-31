@@ -9,16 +9,21 @@
     <div v-show="showPage==0">
       <ShangDaiPage></ShangDaiPage>
     </div>
+    <div v-show="showPage==1">
+      <GongJijinPage></GongJijinPage>
+    </div>
   </div>
 </template>
 <script>
 import { Tab, TabItem } from "vux";
 import ShangDaiPage from "./ShangDaiPage"
+import GongJijinPage from "./GongJiJinPage"
 export default {
   components: {
     Tab,
     TabItem,
-    ShangDaiPage
+    ShangDaiPage,
+    GongJijinPage
   },
   data() {
     return {
@@ -27,6 +32,7 @@ export default {
   },
   methods:{
      onItemClick (index) {
+       this.showPage=index;
       console.log('on item click:', index)
     }
   }
