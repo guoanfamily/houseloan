@@ -42,14 +42,13 @@ export default {
   },
   methods: {
     change(val, label) {
-      console.log("change", val, label);
-      let payMoney = this.totalMoney*val
-      this.$emit("submit", label+"("+payMoney+"万)",payMoney);
+      console.log("change", val, label);     
+      this.$emit("submit", val,label);
     },
     submit() {
       console.log(this.customMoney)
       if (this.customMoney) {
-        this.$emit("submit", this.customMoney+"万",this.customMoney);
+        this.$emit("submit", this.customMoney);
       }
     }
   }

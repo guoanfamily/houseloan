@@ -14,6 +14,7 @@
 import {Group, XInput, XButton, Radio } from "vux";
 export default {
   components: {
+    Group,
     XInput,
     XButton,
     Radio
@@ -41,13 +42,12 @@ export default {
   },
   methods: {
     change(val, label) {
-      console.log("change", val, label);
       let actRate = this.baseRate*val
-      this.$emit("submit", actRate*100+"%",actRate);
+      this.$emit("submit", (actRate*100).toFixed(2)+"%",actRate);
     },
     submit() {
-      console.log(this.customRate)
       if (this.customRate) {
+        this.customRate = Number(this.customRate).toFixed(2);
         this.$emit("submit", this.customRate+"%",this.customRate/100);
       }
     }

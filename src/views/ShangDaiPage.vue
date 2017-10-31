@@ -2,7 +2,7 @@
   <div>
     <group v-show="!showPayPage">
       
-      <x-input type="number" title="房款总价" :value="totalPrice">
+      <x-input type="number" title="房款总价" v-model="totalPrice">
         <span slot="right">万元</span>
       </x-input>      
       <cell is-link @click.native="showPayPage=true">
@@ -49,28 +49,37 @@ export default {
       loanYearsList:[],
       loanYear:["20年(240期)"],
       totalPrice: 100,
-      payMoney:0,
-      payPercent: "",
+      payRate:0.3,
+      //payPercent: "",
       loanYears: "",
       moneyRate: "",
       baseRate:4.9/100,
-      actRate:0,
-      showRate:0,
+      actRate:4.9/100,
+      showRate:'4.9%',
+      payRateLabel:"三成",
       showPayPage:false,
       showRatePage:false
     };
   },
   computed: {
     loanMoney() {
-      return this.totalPrice - this.payMoney;
+      return (this.totalPrice*(1- this.payRate)).toFixed(2);
+      console.log(this.totalPrice);
+    },
+    payPercent(){
+      if(this.payRate>=1){
+        return this.payRate +"万";
+      }else{
+      return this.payRateLabel+"(" + (this.totalPrice*this.payRate).toFixed(2) +"万" +")";
+      }
     }
   },
   methods:{
-    submit(showValue,payMoney){
+    submit(payRate,label){
+      this.payRateLabel = label;
       this.showPayPage=false;
-      this.payMoney = payMoney;
-      this.payPercent = showValue
-      console.log(showValue)
+      this.payRate = payRate;
+      //this.payPercent = showValue     
     },
     RateSubmit(showValue,actRate){
       this.showRatePage=false;
