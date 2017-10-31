@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-input type="number" placeholder="请输入正确的数字" title="自定义利率" v-model="customMoney">
+    <x-input type="number" placeholder="请输入正确的数字" title="自定义利率" v-model="customRate">
         <span slot="right">%
           <x-button  plain mini @click.native="submit" class="custom-primary-red">确定</x-button>
         </span>
@@ -19,11 +19,11 @@ export default {
     Radio
   },
   props: {
-    totalMoney:0
+    baseRate:0
   },
   data() {
     return {
-      customMoney: null,
+      customRate: null,
       selectedRate: null,
       rateList: [
         { key: 1, value: "基准利率" },
@@ -42,13 +42,13 @@ export default {
   methods: {
     change(val, label) {
       console.log("change", val, label);
-      let payMoney = this.totalMoney*val
-      this.$emit("submit", label+"("+payMoney+"万)",payMoney);
+      let actRate = this.baseRate*val
+      this.$emit("submit", actRate*100+"%",actRate);
     },
     submit() {
-      console.log(this.customMoney)
-      if (this.customMoney) {
-        this.$emit("submit", this.customMoney+"万",this.customMoney);
+      console.log(this.customRate)
+      if (this.customRate) {
+        this.$emit("submit", this.customRate+"%",this.customRate/100);
       }
     }
   }
