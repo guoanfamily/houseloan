@@ -23,6 +23,10 @@
 </template>
 <script>
 export default {
+  props: {
+    ringList: "",
+    houseTotalPrice: ""
+  },
   data() {
     return {
       chartColor: false,
@@ -32,30 +36,28 @@ export default {
       endarc: 0,
       drawList: [],
       drawCount: 0,
-      rcolor: "#ff0000",
-      houseTotalPrice:{name:"房款总价",value:700},
-      ringList: [
-        { name: "首付金额", value: 500, color: "#6EBFFF" },
-        { name: "贷款总额", value: 200, color: "#FFDA7C" },
-        { name: "支付利息", value: 500, color: "#FF70A0" }
-      ]
+      rcolor: "#ff0000"
     };
   },
-  mounted() {
-    this.ctx = this.$refs.canvas.getContext("2d");
-    this.drawText(this.ctx, "￥3540");
-    this.drawlist(this.ctx, this.ringList);
+  watch: {
+    ringList() {
+      console.log("watch")
+      this.ctx = this.$refs.canvas.getContext("2d");
+      this.drawText(this.ctx, "￥3540");
+      this.drawlist(this.ctx, this.ringList);
+    }
   },
   methods: {
     drawlist(ctx, numList) {
       let totalNum = 0;
       numList.map(num => {
-        totalNum += num.value;
+        totalNum += ~~num.value;
       });
 
       let startvalue = 0;
       numList.map(num => {
-        let dnum = Math.round(num.value / totalNum * 100);
+        
+        let dnum = Math.round(~~num.value / totalNum * 100);
         this.drawList.push({
           startarc: startvalue,
           endarc: dnum,
@@ -63,6 +65,8 @@ export default {
         });
         startvalue += dnum;
       });
+      console.log(this.ringList);
+      console.log(this.drawList);
       this.drawAniRing();
     },
     drawAniRing() {
