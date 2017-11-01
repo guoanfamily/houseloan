@@ -11,7 +11,7 @@
       <cell value="万元">
          <span slot="title"><span>贷款总额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>      
       </cell>
-      <popup-picker  :data="loanYearsList"   style="text-align:left">
+      <popup-picker  :data="loanYearsList"  v-model="loanYear" style="text-align:left">
        <span slot="title"><span>按揭年数</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanYear[0]}}</span></span> 
       </popup-picker>
       <cell is-link @click.native="showRatePage=true">
@@ -19,7 +19,7 @@
       </cell>
       <x-button type="warn">开始计算</x-button>
     </group>
-    <PayRate v-show="showPayPage" class="payRate" @submit="submit" :totalMoney="totalPrice"></PayRate>
+    <PayRate v-show="showPayPage" class="payRate" @submit="submit" ></PayRate>
     <MoneyRate v-show="showRatePage" class="payRate" @submit="RateSubmit" :baseRate="baseRate"></MoneyRate>
   </div>
 </template>
@@ -63,8 +63,9 @@ export default {
   },
   computed: {
     loanMoney() {
-      return (this.totalPrice*(1- this.payRate)).toFixed(2);
       console.log(this.totalPrice);
+      return (this.totalPrice*(1- this.payRate)).toFixed(2);
+      
     },
     payPercent(){
       if(!this.payRateLabel){

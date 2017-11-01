@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 const framePage = resolve => require(['../views/FramePage'], resolve)
 const payRate = resolve => require(['@/components/PayRate'], resolve)
+const ringChart = resolve => require(['@/components/RingChart'], resolve)
+const paymentPage = resolve => require(['../views/PaymentPage'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -11,8 +13,12 @@ export default new Router({
     name: 'FramePage',
     component: framePage
   }, {
-    path: '/payRate',
-    name: 'PayRate',
-    component: payRate
+    path: '/ringChart',
+    name: 'ringChart',
+    component: ringChart
+  }, {
+    path: "/payment",
+    name: "paymentPage",
+    component: paymentPage
   }]
 })

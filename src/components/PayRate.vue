@@ -20,9 +20,6 @@ export default {
     XButton,
     Radio
   },
-  props: {
-    totalMoney:0
-  },
   data() {
     return {
       customMoney: null,

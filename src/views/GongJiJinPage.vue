@@ -11,7 +11,7 @@
       <cell value="万元">
          <span slot="title"><span>贷款总额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>      
       </cell>
-      <popup-picker  :data="loanYearsList"   style="text-align:left">
+      <popup-picker  :data="loanYearsList"  v-model="loanYear" style="text-align:left">
        <span slot="title"><span>按揭年数</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanYear[0]}}</span></span> 
       </popup-picker>
       <cell is-link @click.native="showRatePage=true">
