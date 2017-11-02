@@ -1,7 +1,7 @@
 <template>
-<div style="margin-top:10px;text-align: center;">
+<div style="margin-top:10px;text-align: center;width:220px;">
   <canvas ref="canvas" width="160" height="160"></canvas>
-  <div>
+  <div style="">
     <p class="houseMoney">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <span>{{houseTotalPrice.name}}</span>
@@ -11,7 +11,7 @@
     </p>
     <ul>
       <li class="houseMoney" v-for="item in ringList" :key="item.name">
-        <span :style="{color:item.color}">▇▇</span>
+        <span :style="{color:item.color}">▇</span>
         <span>{{item.name}}</span>
         <span>:</span>
         <span>{{item.value}}</span>
@@ -26,7 +26,7 @@ export default {
   props: {
     ringList: "",
     houseTotalPrice: "",
-    monthPay:0
+    monthPay: 0
   },
   data() {
     return {
@@ -35,70 +35,101 @@ export default {
       ctx: null,
       startarc: 0,
       endarc: 0,
+      aniid:"",
       drawList: [],
       drawCount: 0,
-      rcolor: "#ff0000"
+      rcolor: "#ff0000",
+      maxEndArc:0
     };
   },
   watch: {
     ringList() {
-      console.log("watch")
+      console.log("watch");
       this.ctx = this.$refs.canvas.getContext("2d");
-      this.drawText(this.ctx, "￥"+this.monthPay);
-      this.drawlist(this.ctx, this.ringList);
+      this.drawlist(this.ringList);
     }
   },
   methods: {
-    drawlist(ctx, numList) {
+    drawlist(numList) {
       let totalNum = 0;
       numList.map(num => {
         totalNum += ~~num.value;
       });
 
       let startvalue = 0;
+      this.drawList = [];
       numList.map(num => {
-        
-        let dnum = Math.round(~~num.value / totalNum * 100);
+        let dnum = Math.ceil(~~num.value / totalNum * 100)-1;
+        this.maxEndArc= dnum>this.maxEndArc?dnum:this.maxEndArc;
         this.drawList.push({
           startarc: startvalue,
           endarc: dnum,
           rcolor: num.color
         });
-        startvalue += dnum;
+        startvalue += dnum+1;
       });
-      console.log(this.ringList);
-      console.log(this.drawList);
+      //初始化参数
+      window.cancelAnimationFrame(this.aniid); //可以取消该次动画。
+      this.drawCount = 0;
+      this.startarc = 0;
+      this.aniend = 0;
+      this.endarc = 0;
+      this.rcolor = "#ff0000";
       this.drawAniRing();
     },
     drawAniRing() {
-      let aniid = window.requestAnimationFrame(this.drawAniRing);
-      this.aniend += 1;
-      this.drawRing(this.ctx, this.startarc, this.aniend, this.rcolor);
-      if (this.aniend >= this.endarc) {
-        if (this.drawCount >= this.drawList.length) {
-          window.cancelAnimationFrame(aniid); //可以取消该次动画。
+      this.aniid = window.requestAnimationFrame(this.drawAniRing);
+      this.aniend += 2;
+      this.ctx.clearRect(0, 0, 160, 160);
+      this.drawText(this.ctx, "￥" + this.monthPay);
+      this.drawList.map(drawitem=>{
+        let drawEnd = this.aniend;
+        drawEnd=Math.round(drawitem.endarc/this.maxEndArc*drawEnd)
+        this.drawRing(this.ctx, drawitem.startarc,
+        drawEnd, drawitem.rcolor);
+      })
+      if (this.aniend >= this.maxEndArc) {       
+          window.cancelAnimationFrame(this.aniid); //可以取消该次动画。
           return;
-        }
-        this.aniend = 0;
-        this.startarc = this.drawList[this.drawCount].startarc;
-        this.endarc = this.drawList[this.drawCount].endarc;
-        this.rcolor = this.drawList[this.drawCount].rcolor;
-        this.drawCount += 1;
       }
+    },
+    drawRingBorder(ctx){
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle ="#000000"; // rcolor;
+      
+      ctx.arc(
+        80,
+        80,
+        38,
+        -90 * Math.PI / 180,
+        (360 - 90) * Math.PI / 180
+      );
+      ctx.arc(
+        80,
+        80,
+        76,
+        -90 * Math.PI / 180,
+        (360 - 90) * Math.PI / 180
+      );
+      ctx.stroke();
+      ctx.closePath();
+      ctx.restore();
     },
     drawRing(ctx, s, e, rcolor) {
       ctx.save();
       ctx.beginPath();
-      ctx.lineWidth = 40;
+      ctx.lineWidth = 36;
       ctx.strokeStyle = rcolor; // rcolor;
       //设置开始处为0点钟方向(-90 * Math.PI / 180)
       //x为百分比值(0-100)
       let endarc = s + e;
-      if (endarc > 100) endarc = 100;
+      if (endarc > 99) endarc = 99;
       ctx.arc(
         80,
         80,
-        60,
+        58,
         (s * 3.6 - 90) * Math.PI / 180,
         (endarc * 3.6 - 90) * Math.PI / 180
       );
@@ -107,7 +138,7 @@ export default {
       ctx.restore();
     },
     drawText(ctx, showText) {
-      ctx.font = "20px Arial";
+      ctx.font = "16px Arial";
       ctx.fillStyle = "#83868f";
       ctx.textBaseline = "middle";
       ctx.textAlign = "center";
@@ -117,16 +148,5 @@ export default {
   }
 };
 </script>
-<style lang='less' scoped>
-.houseMoney {
-  color: #b3b6be;
-  text-align: center;
-  list-style: none;
-  span:nth-child(3) {
-    color: #000000;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-</style>
+
 

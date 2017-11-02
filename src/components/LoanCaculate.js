@@ -7,7 +7,7 @@ export default {
     return mounthPay
   },
   //本金还款的月还款额(参数: 年利率 / 贷款总额 / 贷款总月份 / 贷款当前月0～length-1)
-  getMonthMoney2(lilv, total, month, cur_month) {
+  AverageCapital(lilv, total, month, cur_month) {
     var lilv_month = lilv / 12; //月利率
     //return total * lilv_month * Math.pow(1 + lilv_month, month) / ( Math.pow(1 + lilv_month, month) -1 );
     var benjin_money = total / month;

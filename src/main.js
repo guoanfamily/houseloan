@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './components/public.less'
 
 Vue.config.productionTip = false
 const FastClick = require('fastclick')
