@@ -6,7 +6,7 @@
         <button-tab-item>等额本金</button-tab-item>       
     </button-tab>
     <p class="disctext">{{lineOne}}</p>
-    <RingChart :ringList="ringList" :houseTotalPrice="houseTotalPrice"></RingChart>
+    <RingChart :ringList="ringList" :houseTotalPrice="houseTotalPrice" :monthPay="monthPay"></RingChart>
 
   </div>
 
@@ -34,6 +34,7 @@ export default {
 
       let monthPay =  LoanCaculate.Acpi(rate,totalloan,months)
       console.log("月供",Math.ceil(monthPay));
+      this.monthPay = Math.ceil(monthPay);
       let totalPay = monthPay*months;
       console.log("总还款",Math.ceil(totalPay));
       let totalInterest = totalPay - totalloan;
@@ -50,7 +51,8 @@ export default {
     return {
       lineOne: "每月还款额固定，所还总利息较多，适合收入稳定者。",
       ringList:[],
-      houseTotalPrice:{name:"房款总价",value:700}
+      houseTotalPrice:"",
+      monthPay:0
     }
   }
 };

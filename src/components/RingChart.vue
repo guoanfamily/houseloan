@@ -25,7 +25,8 @@
 export default {
   props: {
     ringList: "",
-    houseTotalPrice: ""
+    houseTotalPrice: "",
+    monthPay:0
   },
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
     ringList() {
       console.log("watch")
       this.ctx = this.$refs.canvas.getContext("2d");
-      this.drawText(this.ctx, "￥3540");
+      this.drawText(this.ctx, "￥"+this.monthPay);
       this.drawlist(this.ctx, this.ringList);
     }
   },
