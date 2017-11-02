@@ -1,9 +1,9 @@
 <template>
-<div style="margin-top:10px;text-align: center;width:220px;">
+<div style="margin-top:10px;text-align: center;width:220px;transform: translateZ(0px);">
   <canvas ref="canvas" width="160" height="160"></canvas>
   <div style="">
     <p class="houseMoney">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span></span>
         <span>{{houseTotalPrice.name}}</span>
         <span>:</span>
         <span>{{houseTotalPrice.value}}</span>
