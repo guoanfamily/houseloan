@@ -14,19 +14,28 @@
     <div v-show="showPage==1">
       <GongJijinPage></GongJijinPage>
     </div>
-    
+    <div v-show="showPage==2">
+      <ZuHePage></ZuHePage>
+    </div>
+    <div v-show="showPage==3">
+      <ShuiFiePage></ShuiFiePage>
+    </div>
   </div>
 </template>
 <script>
 import { Tab, TabItem } from "vux";
 import ShangDaiPage from "./ShangDaiPage"
 import GongJijinPage from "./GongJiJinPage"
+import ZuHePage from "./ZuHePage"
+import ShuiFiePage from "./ShuiFiePage"
 export default {
   components: {
     Tab,
     TabItem,
     ShangDaiPage,
-    GongJijinPage
+    GongJijinPage,
+    ZuHePage,
+    ShuiFiePage
   },
   data() {
     return {
