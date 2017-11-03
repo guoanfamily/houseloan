@@ -7,11 +7,14 @@
     <tab-item @on-item-click="onItemClick">税费计算</tab-item>
     </tab>
     <div v-show="showPage==0">
-      <ShangDaiPage></ShangDaiPage>
+      
+        <ShangDaiPage></ShangDaiPage>
+      </keep-alive>
     </div>
     <div v-show="showPage==1">
       <GongJijinPage></GongJijinPage>
     </div>
+    
   </div>
 </template>
 <script>

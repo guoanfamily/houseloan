@@ -63,8 +63,7 @@ export default {
     };
   },
   computed: {    
-    loanMoney() {
-      console.log(this.totalPrice);
+    loanMoney() {      
       return (this.totalPrice * (1 - this.payRate)).toFixed(2);
     },
     payPercent() {

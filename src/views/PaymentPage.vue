@@ -83,12 +83,12 @@ export default {
          this.monthDecMoney = (monthPay-nextmonthPay).toFixed(2);
          this.lineOne = "每月还款额递减，所还总利息较低，前期还款额较大。"
       }
-      console.log("月供",Math.ceil(monthPay));
+      //console.log("月供",Math.ceil(monthPay));
       this.monthPay = Math.ceil(monthPay);
       
-      console.log("总还款",Math.ceil(totalPay));
+      //console.log("总还款",Math.ceil(totalPay));
       let totalInterest = totalPay - this.loanMoney;
-      console.log("总利息",Math.ceil(totalInterest));
+      //console.log("总利息",Math.ceil(totalInterest));
       this.houseTotalPrice={name:"房款总价",value:(this.totalPrice/10000).toFixed(2)}
       this.ringList=[
         { name: "首付金额", value: (~~this.payMoney).toFixed(2), color: "#6EBFFF" },

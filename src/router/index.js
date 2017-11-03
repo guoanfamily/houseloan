@@ -11,7 +11,8 @@ export default new Router({
   routes: [{
     path: '/',
     name: 'FramePage',
-    component: framePage
+    component: framePage,
+    meta: { keepAlive: true }
   }, {
     path: '/ringChart',
     name: 'ringChart',
