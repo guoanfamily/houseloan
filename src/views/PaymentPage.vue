@@ -91,9 +91,9 @@ export default {
       //console.log("总利息",Math.ceil(totalInterest));
       this.houseTotalPrice={name:"房款总价",value:(this.totalPrice/10000).toFixed(2)}
       this.ringList=[
-        { name: "首付金额", value: (~~this.payMoney).toFixed(2), color: "#6EBFFF" },
-        { name: "贷款总额", value: (this.loanMoney/10000).toFixed(2), color: "#FFDA7C" },
-        { name: "支付利息", value: (totalInterest/10000).toFixed(2), color: "#FF70A0" }
+        { name: "首付金额", value: (~~this.payMoney).toFixed(2),unit: "万元", color: "#6EBFFF" },
+        { name: "贷款总额", value: (this.loanMoney/10000).toFixed(2),unit: "万元", color: "#FFDA7C" },
+        { name: "支付利息", value: (totalInterest/10000).toFixed(2),unit: "万元", color: "#FF70A0" }
       ]
     }
   },
