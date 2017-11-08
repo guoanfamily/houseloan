@@ -6,6 +6,7 @@ const payRate = resolve => require(['@/components/PayRate'], resolve)
 const ringChart = resolve => require(['@/components/RingChart'], resolve)
 const paymentPage = resolve => require(['../views/PaymentPage'], resolve)
 const ZuhePayment = resolve => require(['../views/ZuhePayment'], resolve)
+const ShuifeiPay = resolve => require(['../views/ShuifeiPay'], resolve)
 Vue.use(Router)
 
 export default new Router({
@@ -27,5 +28,9 @@ export default new Router({
     path: '/ZuhePayment',
     name: 'ZuhePayment',
     component: ZuhePayment
+  },{
+    path: '/ShuifeiPay',
+    name: 'ShuifeiPay',
+    component: ShuifeiPay
   },]
 })
