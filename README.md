@@ -3,10 +3,10 @@
 > house loan caculator on mobile
 >
 >vue vux实现 房贷计算器手机版
+>实现商贷、公积金贷、混合贷、税费计算
 >
->房贷详情页面、混合贷页面、税费计算页面开发中……
 
-## example url
+## example url 示例：
 
 <https://guoanfamily.github.io/houseloan/example/>
 
