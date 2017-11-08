@@ -44,7 +44,7 @@ export default {
   },
   watch: {
     ringList() {
-      console.log("watch");
+      // console.log("watch");
       this.ctx = this.$refs.canvas.getContext("2d");
       this.drawlist(this.ringList);
     }

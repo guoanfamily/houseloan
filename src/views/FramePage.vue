@@ -45,7 +45,6 @@ export default {
   methods:{
      onItemClick (index) {
        this.showPage=index;
-      console.log('on item click:', index)
     }
   }
 };

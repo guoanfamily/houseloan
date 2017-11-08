@@ -39,11 +39,11 @@ export default {
   },
   methods: {
     change(val, label) {
-      console.log("change", val, label);     
+      // console.log("change", val, label);     
       this.$emit("submit", val,label);
     },
     submit() {
-      console.log(this.customMoney)
+      // console.log(this.customMoney)
       if (this.customMoney) {
         this.$emit("submit", this.customMoney,'');
       }

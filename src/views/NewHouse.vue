@@ -34,8 +34,7 @@ export default {
     };
   },
   methods: {
-    calculateShui() {
-      console.log(this.nature[0]);
+    calculateShui() {      
       this.nature[0] == "普通住宅" ? this.IsCommonHousea=1 : this.IsCommonHousea=0;
       this.$router.push({
         path: "/ShuifeiPay",
