@@ -15,7 +15,7 @@
         <span>{{item.name}}</span>
         <span>:</span>
         <span>{{item.value}}</span>
-        <span>万元</span>
+        <span>{{item.unit}}</span>
       </li>
     </ul>
   </div>
@@ -83,7 +83,9 @@ export default {
       this.aniid = window.requestAnimationFrame(this.drawAniRing);
       this.aniend += 2;
       this.ctx.clearRect(0, 0, 160, 160);
-      this.drawText(this.ctx, "￥" + this.monthPay);
+      if(this.monthPay){
+        this.drawText(this.ctx, "￥" + this.monthPay);
+      }
       this.drawList.map(drawitem=>{
         let drawEnd = this.aniend;
         drawEnd=Math.round(drawitem.endarc/this.maxEndArc*drawEnd)
