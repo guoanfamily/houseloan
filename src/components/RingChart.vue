@@ -61,12 +61,14 @@ export default {
       numList.map(num => {
         let dnum = Math.ceil(~~num.value / totalNum * 100)-1;
         this.maxEndArc= dnum>this.maxEndArc?dnum:this.maxEndArc;
-        this.drawList.push({
-          startarc: startvalue,
-          endarc: dnum,
-          rcolor: num.color
-        });
-        startvalue += dnum+1;
+        if(dnum>0){
+          this.drawList.push({
+            startarc: startvalue,
+            endarc: dnum,
+            rcolor: num.color
+          });
+          startvalue += dnum+1;
+        }
       });
       //初始化参数
       window.cancelAnimationFrame(this.aniid); //可以取消该次动画。
