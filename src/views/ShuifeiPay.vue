@@ -30,19 +30,13 @@ export default {
     this.IsCommonHouse = this.$route.query.IsCommonHouse;
     this.IsOnly = this.$route.query.IsOnly;
     if (this.IsOnly) {
-      
       this.ringList = [
         {
           name: "契税",
           value: this.houseTotalPrice.value * 10000 * 0.015,
           color: "#6EBF00",
-          unit:"元"
-        },
-        
-        { name: "合同工本费", value: 5,unit:"元", color: "#6EBFFF" },
-        { name: "维修基金", value: 30000,unit:"元", color: "#FFDA7C" },
-        { name: "权属登记费", value: 80,unit:"元", color: "#ff70A0" },
-       
+          unit: "元"
+        }
       ];
     } else {
       this.ringList = [
@@ -50,14 +44,14 @@ export default {
           name: "契税",
           value: this.houseTotalPrice.value * 10000 * 0.03,
           color: "#6EBF00"
-        },
-        
-        { name: "合同工本费", value: 5, color: "#6EBFFF" },
-        { name: "维修基金", value: 30000, color: "#FFDA7C" },
-        { name: "权属登记费", value: 80, color: "#ff70A0" },
-       
+        }
       ];
     }
+    this.ringList.push(
+      { name: "合同工本费", value: 5, unit: "元", color: "#6EBFFF" },
+      { name: "维修基金", value: 30000, unit: "元", color: "#FFDA7C" },
+      { name: "权属登记费", value: 80, unit: "元", color: "#ff70A0" }
+    );
 
     let a = 0;
     for (var i = 0; i < this.ringList.length; i++) {
