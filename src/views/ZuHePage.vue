@@ -6,7 +6,7 @@
       </x-input>
        <popup-picker  :data="sloanYearsList" title="商业贷款按揭年数:"  v-model="sloanYear" style="text-align:left">
       </popup-picker>
-      <x-input  title="公积金贷款:"  placeholder="请输入贷款总额" v-model="sloanMoney">
+      <x-input  title="公积金贷款:"  placeholder="请输入贷款总额" v-model="gloanMoney">
         <span slot="right">万元</span>
       </x-input>
        <popup-picker  :data="gloanYearsList" title="公积金贷款按揭年数" v-model="gloanYear"  style="text-align:left">
