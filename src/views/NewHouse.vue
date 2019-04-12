@@ -5,11 +5,11 @@
       </x-input>
       <x-input  title="面积单价:" v-model="areaPrice">
         <span slot="right">元</span>
-      </x-input>      
+      </x-input>
       <popup-picker :data="natureList" title="房屋性质" v-model="nature"  style="text-align:left">
       </popup-picker>
       <x-switch title="是否唯一" v-model="stringValue"></x-switch>
-      <x-button type="warn" @click.native="calculateShui">开始计算</x-button>
+      <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="calculateShui">开始计算</x-button>
   </div>
 </template>
 <script>
@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    calculateShui() {      
+    calculateShui() {
       this.nature[0] == "普通住宅" ? this.IsCommonHousea=1 : this.IsCommonHousea=0;
       this.$router.push({
         path: "/ShuifeiPay",
@@ -46,4 +46,3 @@ export default {
   },
 };
 </script>
-

@@ -1,23 +1,23 @@
 <template>
   <div>
     <group v-show="!showPayPage">
-      
+
       <x-input type="number" title="房款总价" v-model="totalPrice">
         <span slot="right">万元</span>
-      </x-input>      
+      </x-input>
       <cell is-link @click.native="showPayPage=true">
         <span slot="title"><span>首付比例</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{payPercent}}</span></span>
       </cell>
       <cell value="万元">
-         <span slot="title"><span>贷款总额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>      
+         <span slot="title"><span>贷款总额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>
       </cell>
       <popup-picker title="按揭年数" :data="loanYearsList"  v-model="loanYear" value-text-align="left">
-       
+
       </popup-picker>
       <cell is-link @click.native="showRatePage=true">
         <span slot="title"><span>利&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{showRate}}</span></span>
       </cell>
-      <x-button type="warn" @click.native="caculateLoan">开始计算</x-button>
+      <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="caculateLoan">开始计算</x-button>
     </group>
     <PayRate v-show="showPayPage" class="payRate" @submit="submit" ></PayRate>
     <MoneyRate v-show="showRatePage" class="payRate" @submit="RateSubmit" :baseRate="baseRate"></MoneyRate>
@@ -54,16 +54,30 @@ export default {
       payMoney: 0,
       loanYears: "",
       moneyRate: "",
-      baseRate: 3.25 / 100,
+      // baseRate: 3.25 / 100,
       actRate: 3.25 / 100,
-      showRate: "3.25%",
+      // showRate: "3.25%",
       payRateLabel: "三成",
       showPayPage: false,
       showRatePage: false
     };
   },
-  computed: {    
-    loanMoney() {      
+  computed: {
+    baseRate () {
+      if (this.years <= 5) {
+        return 2.75 / 100
+      }
+
+      return 3.25 / 100
+    },
+    years () {
+      const month = this.loanYear[0].match(/\((\S*)\)/);
+      return parseInt(month[1].substr(0,month[1].length-1) / 12);
+    },
+    showRate () {
+      return (this.actRate * 100).toFixed(2) + '%'
+    },
+    loanMoney() {
       return (this.totalPrice * (1 - this.payRate)).toFixed(2);
     },
     payPercent() {
@@ -84,7 +98,7 @@ export default {
   },
   methods: {
     caculateLoan() {
-      let month = this.loanYear[0].match(/\((\S*)\)/);			
+      let month = this.loanYear[0].match(/\((\S*)\)/);
       let months = month[1].substr(0,month[1].length-1);
       this.$router.push({
         path: "/payment",
@@ -103,7 +117,7 @@ export default {
     RateSubmit(showValue, actRate) {
       this.showRatePage = false;
       this.actRate = actRate;
-      this.showRate = showValue;
+      // this.showRate = showValue;
     }
   }
 };

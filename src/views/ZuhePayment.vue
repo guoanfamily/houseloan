@@ -4,51 +4,49 @@
     <div style="margin:0 auto;width:220px;">
     <button-tab v-model="selectedItem">
         <button-tab-item @on-item-click="itemChange">等额本息</button-tab-item>
-        <button-tab-item @on-item-click="itemChange">等额本金</button-tab-item>       
+        <button-tab-item @on-item-click="itemChange">等额本金</button-tab-item>
     </button-tab>
-    
+
     <p class="disctext">{{lineOne}}</p>
     <RingChart :ringList="ringList" :houseTotalPrice="houseTotalPrice" :monthPay="monthPay"></RingChart>
-    
+
     <ul>
-      <li class="houseMoney">         
+      <li class="houseMoney">
         <span></span>
         <span>首月月供</span>
         <span>:</span>
         <span>{{this.monthPay}}</span>
         <span>元/月</span>
       </li>
-      <li class="houseMoney" v-if="noEq">         
-        <span>前</span>
-        <span>{{lessMonth}}</span>
-        <span>年月供</span>
+      <li class="houseMoney" v-if="noEq">
+        <span></span>
+        <span>前 {{lessYear}} 月</span>
         <span>:</span>
         <span>{{this.monthPay}}</span>
         <span>元/月</span>
       </li>
-      <li class="houseMoney" v-if="noEq">         
-        <span>后</span>
-        <span>{{moreMonth}}</span>
-        <span>年月供</span>
+      <li class="houseMoney" v-if="noEq">
+        <span></span>
+        <span>后 {{moreYear}} 月</span>
         <span>:</span>
         <span>{{afterPay}}</span>
         <span>元/月</span>
       </li>
-       <li v-show="this.selectedItem==1" class="houseMoney">         
+       <li v-show="this.selectedItem==1" class="houseMoney">
         <span></span>
         <span>每月递减</span>
         <span>:</span>
         <span>{{this.monthDecMoney}}</span>
         <span>元/月</span>
       </li>
-      <li class="houseMoney" v-if="noSame">         
+      <li class="houseMoney" v-if="noSame">
         <span></span>
-        <span>第{{lastMonth}}月月供</span>
+        <span>第 {{lastMonth}} 月</span>
         <span>:</span>
         <span>{{lastMonthpay}}</span>
         <span>元/月</span>
       </li>
-      <li class="houseMoney" v-if="noSame">         
+      <li class="houseMoney" v-if="noSame">
         <span></span>
         <span>每月递减</span>
         <span>:</span>
@@ -92,7 +90,7 @@ export default {
         this.caculateAcpi(false);
         this.noEq = false;
       }
-      
+
     },
     caculateAcpi(isAcpi) {
       let totalMonthpay = 0;
@@ -106,8 +104,8 @@ export default {
          totalPay = smonthPay*this.smonths + gmonthPay*this.gmonths;
          if(this.smonths != this.gmonths){
              this.noEq = true;
-             this.lessMonth = (Math.min(this.smonths,this.gmonths))/12;
-             this.moreMonth = (Math.abs(this.smonths-this.gmonths))/12;
+             this.lessYear = (Math.min(this.smonths,this.gmonths));
+             this.moreYear = (Math.abs(this.smonths-this.gmonths));
              if(this.smonths > this.gmonths){
                  this.afterPay = smonthPay.toFixed(0);
              }else{
@@ -127,14 +125,14 @@ export default {
          if(this.smonths != this.gmonths){
              this.noSame = true;
              this.lastMonth = Math.min(this.smonths,this.gmonths)+1;
-             
+
               if(this.smonths > this.gmonths){
                   this.lastMonthpay = parseInt(LoanCaculate.AverageCapital(this.srate,this.sloanMoney,this.smonths,this.lastMonth));
                   this.lastLess = (LoanCaculate.AverageCapital(this.srate,this.sloanMoney,this.smonths,0) - LoanCaculate.AverageCapital(this.srate,this.sloanMoney,this.smonths,1)).toFixed(2);
              }else{
                   this.lastMonthpay = parseInt(LoanCaculate.AverageCapital(this.grate,this.gloanMoney,this.gmonths,this.lastMonth));
                   this.lastLess = (LoanCaculate.AverageCapital(this.grate,this.gloanMoney,this.gmonths,0) - LoanCaculate.AverageCapital(this.grate,this.gloanMoney,this.gmonths,1)).toFixed(2);
-                 
+
              }
          }
          totalMonthpay =  LoanCaculate.AverageCapital(this.srate,this.sloanMoney,this.smonths,0) + LoanCaculate.AverageCapital(this.grate,this.gloanMoney,this.gmonths,0);
@@ -144,7 +142,7 @@ export default {
       }
       //console.log("月供",Math.ceil(monthPay));
       this.monthPay = Math.ceil(totalMonthpay);
-      
+
       //console.log("总还款",Math.ceil(totalPay));
       let totalInterest = totalPay - this.sloanMoney - this.gloanMoney;
       //console.log("总利息",Math.ceil(totalInterest));
@@ -171,8 +169,8 @@ export default {
       srate:0,
       grate:0,
       monthDecMoney:0,
-      lessMonth:0,
-      moreMonth:0,
+      lessYear:0,
+      moreYear:0,
       afterPay:0,
       noEq:false,
       noSame:false,
