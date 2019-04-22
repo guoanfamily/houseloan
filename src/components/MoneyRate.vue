@@ -2,13 +2,13 @@
   <div>
     <x-input type="number" placeholder="请输入正确的数字" title="自定义利率" v-model="customRate">
         <span slot="right">%
-          <x-button  plain mini @click.native="submit" class="custom-primary-red">确定</x-button>
+          <x-button plain mini @click.native="submit" class="custom-primary-red">确定</x-button>
         </span>
       </x-input>
       <group title="或者选择常用利率">
-       <radio :options="rateList" v-model="selectedRate" @on-change="change"></radio>    
+       <radio :options="rateList" v-model="selectedRate" @on-change="change"></radio>
       </group>
-  </div>  
+  </div>
 </template>
 <script>
 import {Group, XInput, XButton, Radio } from "vux";
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       customRate: null,
-      selectedRate: null,
+      selectedRate: 1,
       rateList: [
         { key: 1, value: "基准利率" },
         { key: 0.7, value: "7折" },
@@ -47,9 +47,18 @@ export default {
     },
     submit() {
       if (this.customRate) {
-        this.customRate = Number(this.customRate).toFixed(2);
-        this.$emit("submit", this.customRate+"%",this.customRate/100);
+        if (this.customRate < 100) {
+          this.customRate = Number(this.customRate).toFixed(2);
+          this.$emit("submit", this.customRate+"%",this.customRate/100);
+        }
+      } else {
+        this.change(this.selectedRate)
       }
+    }
+  },
+  watch: {
+    baseRate () {
+      this.change(this.selectedRate)
     }
   }
 };

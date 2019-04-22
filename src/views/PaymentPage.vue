@@ -4,28 +4,28 @@
     <div style="margin:0 auto;width:220px;">
     <button-tab v-model="selectedItem">
         <button-tab-item @on-item-click="itemChange">等额本息</button-tab-item>
-        <button-tab-item @on-item-click="itemChange">等额本金</button-tab-item>       
+        <button-tab-item @on-item-click="itemChange">等额本金</button-tab-item>
     </button-tab>
-    
+
     <p class="disctext">{{lineOne}}</p>
     <RingChart :ringList="ringList" :houseTotalPrice="houseTotalPrice" :monthPay="monthPay"></RingChart>
-    
+
     <ul>
-      <li class="houseMoney">         
+      <li class="houseMoney">
         <span></span>
         <span class="interestrate">利&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率</span>
         <span>:</span>
         <span><span>{{(this.rate*100).toFixed(2)}}</span><span class="sign">%</span></span>
         <span></span>
       </li>
-      <li class="houseMoney">         
+      <li class="houseMoney">
         <span></span>
-        <span>首月月供</span>
+        <span>{{this.selectedItem === 0 ? '每月' : '首月'}}月供</span>
         <span>:</span>
         <span>{{this.monthPay}}</span>
         <span>元/月</span>
       </li>
-       <li v-show="this.selectedItem==1" class="houseMoney">         
+       <li v-show="this.selectedItem==1" class="houseMoney">
         <span></span>
         <span>每月递减</span>
         <span>:</span>
@@ -64,7 +64,7 @@ export default {
       }else{
         this.caculateAcpi(false);
       }
-      
+
     },
     caculateAcpi(isAcpi) {
       let monthPay = 0;
@@ -85,7 +85,7 @@ export default {
       }
       //console.log("月供",Math.ceil(monthPay));
       this.monthPay = Math.ceil(monthPay);
-      
+
       //console.log("总还款",Math.ceil(totalPay));
       let totalInterest = totalPay - this.loanMoney;
       //console.log("总利息",Math.ceil(totalInterest));

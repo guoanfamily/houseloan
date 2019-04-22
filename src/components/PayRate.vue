@@ -1,15 +1,14 @@
 <template>
   <div>
-    
-    <x-input type="number" placeholder="请输入正确的数字" title="自定义" v-model="customMoney">
-        <span slot="right">万元
-          <x-button  plain mini @click.native="submit" class="custom-primary-red">确定</x-button>
+    <x-input type="number" placeholder="请输入正确的数字" title="自定义首付比例" v-model="customMoney">
+        <span slot="right">%
+          <x-button plain mini @click.native="submit" class="custom-primary-red">确定</x-button>
         </span>
       </x-input>
       <group title="或者选择首付比例">
-       <radio :options="rateList" v-model="selectedRate" @on-change="change"></radio>    
+       <radio :options="rateList" v-model="selectedRate" @on-change="change"></radio>
       </group>
-  </div>  
+  </div>
 </template>
 <script>
 import {Group, XInput, XButton, Radio } from "vux";
@@ -23,7 +22,7 @@ export default {
   data() {
     return {
       customMoney: null,
-      selectedRate: null,
+      selectedRate: 0.3,
       rateList: [
         { key: 0.1, value: "一成" },
         { key: 0.2, value: "二成" },
@@ -39,13 +38,17 @@ export default {
   },
   methods: {
     change(val, label) {
-      // console.log("change", val, label);     
+      // console.log("change", val, label);
       this.$emit("submit", val,label);
     },
     submit() {
       // console.log(this.customMoney)
       if (this.customMoney) {
-        this.$emit("submit", this.customMoney,'');
+        if (this.customMoney < 100) {
+          this.$emit("submit", this.customMoney / 100, + this.customMoney + '%');
+        }
+      } else {
+        this.change(this.selectedRate, this.rateList.find(x => Math.abs(x.key - this.selectedRate) < 0.0001).value)
       }
     }
   }
